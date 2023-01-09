@@ -9,8 +9,8 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
-          index
-          <a href="{{ contacts.create }}">新規登録</a>
+          index<br>
+          <a href="{{ route('contacts.create') }}" class="text-blue-500">新規登録</a>
         </div>
       </div>
     </div>
