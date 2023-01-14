@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactFormRequest;
 use App\Models\ContactForm;
 
 class ContactFormController extends Controller
@@ -34,8 +35,10 @@ class ContactFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactFormRequest $request)
     {
+        $validated = $request->validated();
+
         $contactForm = ContactForm::create([
             'name' => $request->name,
             'title' => $request->title,
