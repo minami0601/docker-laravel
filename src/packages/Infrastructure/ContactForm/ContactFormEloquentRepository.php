@@ -10,7 +10,6 @@ class ContactFormEloquentRepository implements ContactFormRepository
   public function create(ContactFormEntity $contactFormEntity): ContactFormEntity
   {
     $contactForm = ContactForm::create([
-      'id'      => $contactFormEntity->getId()->value(),
       'name'    => $contactFormEntity->getName()->value(),
       'title'   => $contactFormEntity->getTitle()->value(),
       'email'   => $contactFormEntity->getEmail()->value(),
