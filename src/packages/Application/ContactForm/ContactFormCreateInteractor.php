@@ -9,12 +9,12 @@ use Packages\Domain\ContactForm\ContactFormAge;
 use Packages\Domain\ContactForm\ContactFormGender;
 use Packages\Domain\ContactForm\ContactFormTitle;
 use Packages\Domain\ContactForm\ContactFormUrl;
-use Packages\Infrastructure\ContactForm\ContactFromEloquentRepository;
+use Packages\Infrastructure\ContactForm\ContactFormEloquentRepository;
 use Packages\UseCase\ContactForm\Create\ContactFormCreateRequest;
 use Packages\UseCase\ContactForm\Create\ContactFormCreateResponse;
 use Packages\UseCase\ContactForm\Create\ContactFormCreateUseCaseInterface;
 
-class ContactFormInteractor implements ContactFormCreateUseCaseInterface
+class ContactFormCreateInteractor implements ContactFormCreateUseCaseInterface
 {
   /** @var ContactFormEloquentRepository  */
   private $contactFormEloquentRepository;
@@ -22,14 +22,14 @@ class ContactFormInteractor implements ContactFormCreateUseCaseInterface
   /**
    * fInteractor constructor.
    */
-  public function __construct(ContactFromEloquentRepository $contactFromEloquentRepository)
+  public function __construct(ContactFormEloquentRepository $contactFormEloquentRepository)
   {
-    $this->contactFromEloquentRepository = $contactFromEloquentRepository;
+    $this->contactFormEloquentRepository = $contactFormEloquentRepository;
   }
 
   public function __invoke(ContactFormCreateRequest $request): ContactFormCreateResponse
   {
-    // Userのドメインモデルを生成
+    // ContactFormのドメインモデルを生成
     // この時、全ての値の審査も行われる
     $contactForm= new ContactFormCreateEntity(
       ContactFormName::create($request->getName()),
@@ -42,7 +42,7 @@ class ContactFormInteractor implements ContactFormCreateUseCaseInterface
     );
 
     // Repositoryに投げて永続化
-    $contactForm = $this->contactFormRepository->create($contactForm);
+    $contactForm = $this->contactFormEloquentRepository->create($contactForm);
 
     // レスポンスとして返却する公開情報はResponseクラスで指定
     return new ContactFormCreateResponse(

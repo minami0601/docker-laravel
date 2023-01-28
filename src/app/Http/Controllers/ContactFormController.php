@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactFormRequest;
-use App\Models\ContactForm;
+use Packages\UseCase\ContactForm\Create\ContactFormCreateUseCaseInterface;
+use Packages\UseCase\ContactForm\Create\ContactFormCreateRequest;
 
 class ContactFormController extends Controller
 {
@@ -35,21 +35,39 @@ class ContactFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ContactFormRequest $request)
+    public function store(ContactFormCreateUseCaseInterface $createUseCase)
     {
-        $validated = $request->validated();
+        dd('aa');
+        // $validated = $request->validated();
 
-        $contactForm = ContactForm::create([
-            'name' => $request->name,
-            'title' => $request->title,
-            'email' => $request->email,
-            'url' => $request->url,
-            'gender' => $request->gender,
-            'age' => $request->age,
-            'contact' => $request->contact
-        ]);
+        // $name    = $validated['name'];
+        // $title   = $validated['title'];
+        // $email   = $validated['email'];
+        // $url     = $validated['url'];
+        // $gender  = $validated['gender'];
+        // $age     = $validated['age'];
+        // $contact = $validated['contact'];
+        $name    = $request->name;
+        $title   = $request->title;
+        $email   = $request->email;
+        $url     = $request->url;
+        $gender  = $request->gender;
+        $age     = $request->age;
+        $contact = $request->contact;
 
-        return to_route('contacts.index');
+        $input = new ContactFormCreateRequest(
+            $name,
+            $title,
+            $email,
+            $url,
+            $gender,
+            $age,
+            $contact
+        );
+
+        $contactForm = $createUseCase($input);
+
+        return to_route('contacts.index', ['contactForm' => $contactForm]);
     }
 
     /**

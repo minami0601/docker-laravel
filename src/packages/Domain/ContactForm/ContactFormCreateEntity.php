@@ -8,7 +8,7 @@ namespace Packages\Domain\ContactForm;
  * ContactFormを表現するEntity
  * @package Packages\Domain\ContactForm
  */
-class ContactFormEntity
+class ContactFormCreateEntity
 {
   /** @var ContactFormName */
   protected $name;
