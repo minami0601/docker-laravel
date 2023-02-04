@@ -37,7 +37,6 @@ class ContactFormController extends Controller
      */
     public function store(ContactFormCreateUseCaseInterface $createUseCase)
     {
-        dd('aa');
         // $validated = $request->validated();
 
         // $name    = $validated['name'];
