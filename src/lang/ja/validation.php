@@ -154,7 +154,8 @@ return [
     */
 
     'attributes' => [
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'content'  => 'ツイート内容'
     ],
 
 ];

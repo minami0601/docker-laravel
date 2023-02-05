@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TweetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,16 @@ Route::prefix('contacts')
     ->name('contacts.')
     ->controller(ContactFormController::class)
     ->group(function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+    });
+
+Route::prefix('tweets')
+    ->middleware(['auth'])
+    ->name('tweets.')
+    ->controller(TweetController::class)
+    ->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
         Route::post('/', 'store')->name('store');
