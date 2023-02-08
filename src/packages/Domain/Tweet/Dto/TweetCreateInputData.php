@@ -1,7 +1,7 @@
 <?
 namespace App\Packages\Domain\Tweet\Dto;
 
-class TweetInputData
+class TweetCreateInputData
 {
   private $user_id;
   private $content;

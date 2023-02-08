@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Packages\Domain\Tweet;
+namespace App\Packages\Domain\Tweet;
 
 /**
  * Class TweetId

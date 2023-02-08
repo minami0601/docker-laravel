@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Packages\Domain\Tweet;
+namespace App\Packages\Domain\Tweet;
 
 /**
  * Class TweetEntity
  * Tweetを表現するEntity
- * @package Packages\Domain\Tweet
+ * @package App\Packages\Domain\Tweet
  */
 class TweetEntity
 {
