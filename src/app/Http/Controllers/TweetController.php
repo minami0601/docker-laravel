@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TweetRequest;
 use App\Models\Tweet;
+use App\Packages\Domain\Tweet\Dto\TweetCreateInputData;
+use App\Packages\UseCase\Tweet\TweetCreateUseCaseInterface;
+use Packages\UseCase\Tweet\TweetCreateInteractor;
 
 class TweetController extends Controller
 {
+    public function __construct(TweetCreateUseCaseInterface $tweetCreateUseCase)
+    {
+        $this->tweetCreateUseCase = $tweetCreateUseCase;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -38,12 +45,14 @@ class TweetController extends Controller
     public function store(TweetRequest $request)
     {
         $validated = $request->validated();
-
         $user_id = Auth::id();
-        Tweet::create([
-            'user_id' => $user_id,
-            'content' => $validated['content']
-        ]);
+
+        $tweetInputData = new TweetCreateInputData(
+            $user_id,
+            $validated['content']
+        );
+        
+        $this->tweetCreateUseCase->handle($tweetInputData);
 
         return to_route('tweets.index');
     }
